@@ -34,6 +34,18 @@
                     "localUri": "annotations/annotation.xml"
                 }
             }
+        },
+        "crossNavigation": {
+            "inbounds": {
+              "Risks-display": {
+                "signature": {
+                  "parameters": {},
+                  "additionalParameters": "allowed"
+                },
+                "semanticObject": "Risks",
+                "action": "display"
+              }
+            }
         }
     },
     "sap.ui": {
@@ -141,5 +153,9 @@
     "sap.fiori": {
         "registrationIds": [],
         "archeType": "transactional"
+    },
+    "sap.cloud": {
+        "public": true,
+        "service": "cpapp.service"
     }
 }
