@@ -16,7 +16,8 @@ git checkout create-cap-application
 
 ## Known Issues
 
-You can find the known issues [here](https://github.com/SAP-samples/cloud-cap-risk-management/issues).
+You can find the known issues [here](https://github.com/SAP-samples/cloud-cap-risk-management/issues).  
+The project should be developed locally and not in a folder that syncs automatically with OneDrive, as issues during build may arise.
 
 ## How to Obtain Support
 
