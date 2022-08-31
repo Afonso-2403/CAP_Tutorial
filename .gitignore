@@ -16,6 +16,11 @@ target/
 *.mtar
 mta_archives/
 
+# SAP Fiori build files
+dist/
+resources/
+app/*/package-lock.json
+
 # Other
 .DS_Store
 *.orig
