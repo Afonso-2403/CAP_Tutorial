@@ -62,6 +62,44 @@ modules:
     - npm install
     - npm run build:cf
     supported-platforms: []
+- name: cpapp-destinations
+  type: com.sap.application.content
+  requires:
+    - name: cpapp-auth
+      parameters:
+        service-key:
+          name: cpapp-uaa-key
+    - name: cpapp-html5-repo-host
+      parameters:
+        service-key:
+          name: cpapp-html5-repo-host-key
+    - name: srv-api
+    - name: cpapp-destination
+      parameters:
+        content-target: true
+  parameters:
+    content:
+      instance:
+        destinations:
+          - Authentication: OAuth2UserTokenExchange
+            Name: cpapp-app-srv
+            TokenServiceInstanceName: cpapp-auth
+            TokenServiceKeyName: cpapp-auth-key
+            URL: '~{srv-api/srv-url}'
+            sap.cloud.service: cpapp.service
+          - Name: cpapp-html5-repo-host
+            ServiceInstanceName: cpapp-html5-repo-host
+            ServiceKeyName: cpapp-html5-repo-host-key
+            sap.cloud.service: cpapp.service
+          - Authentication: OAuth2UserTokenExchange
+            Name: cpapp-auth
+            ServiceInstanceName: cpapp-auth
+            ServiceKeyName: cpapp-auth-key
+            sap.cloud.service: cpapp.service
+        existing_destinations_policy: update
+  build-parameters:
+    no-source: true
+
 resources:
 - name: cpapp-db
   type: com.sap.xs.hdi-container
@@ -90,7 +128,7 @@ resources:
   type: org.cloudfoundry.managed-service
   parameters:
     config:
-      HTML5Runtime_enabled: false
+      HTML5Runtime_enabled: true
       init_data:
         instance:
           destinations:
