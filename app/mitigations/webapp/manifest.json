@@ -157,6 +157,6 @@
   },
   "sap.cloud": {
     "public": true,
-    "service": "cpapp.service"
+    "service": "cpapp-Afonso.service"
   }
 }
