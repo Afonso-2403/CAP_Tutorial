@@ -37,6 +37,44 @@ modules:
     requires:
       - name: cpapp-Afonso-db
 
+  - name: cpapp-Afonso-destinations
+    type: com.sap.application.content
+    requires:
+      - name: cpapp-Afonso-auth
+        parameters:
+          service-key:
+            name: cpapp-Afonso-auth-key
+      - name: cpapp-Afonso-html5-repo-host
+        parameters:
+          service-key:
+            name: cpapp-Afonso-html5-repo-host-key
+      - name: srv-api
+      - name: cpapp-Afonso-destination
+        parameters:
+          content-target: true
+    parameters:
+      content:
+        instance:
+          destinations:
+            - Authentication: OAuth2UserTokenExchange
+                Name: cpapp-Afonso-app-srv
+              TokenServiceInstanceName: cpapp-Afonso-auth
+              TokenServiceKeyName: cpapp-Afonso-auth-key
+              URL: '~{srv-api/srv-url}'
+              sap.cloud.service: cpapp-Afonso.service
+            - Name: cpapp-Afonso-html5-repo-host
+              ServiceInstanceName: cpapp-Afonso-html5-repo-host
+              ServiceKeyName: cpapp-Afonso-html5-repo-host-key
+              sap.cloud.service: cpapp-Afonso.service
+            - Authentication: OAuth2UserTokenExchange
+              Name: cpapp-Afonso-auth
+              ServiceInstanceName: cpapp-Afonso-auth
+              ServiceKeyName: cpapp-Afonso-auth-key
+              sap.cloud.service: cpapp-Afonso.service
+          existing_destinations_policy: update
+    build-parameters:
+      no-source: true
+
 resources:
   - name: cpapp-Afonso-db
     type: com.sap.xs.hdi-container
@@ -61,3 +99,17 @@ resources:
             description: View Risks
             role-template-references:
               - $XSAPPNAME.RiskViewer
+  - name: cpapp-Afonso-destination
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: destination
+      service-plan: lite
+      config:
+        HTML5Runtime_enabled: true
+  # The SAP HTML5 Application Repository service stores static UI files. 
+  # In the deployment, the SAP Fiori UI applications are uploaded to this service and the SAP Launchpad service serves the UIs from there.
+  - name: cpapp-Afonso-html5-repo-host             
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: html5-apps-repo
+      service-plan: app-host

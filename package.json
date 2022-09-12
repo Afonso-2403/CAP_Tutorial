@@ -18,6 +18,9 @@
     "rimraf": "^3.0.2",
     "sqlite3": "^5.0.2"
   },
+  "engines": {
+    "node": "^16"
+  },
   "scripts": {
     "start": "cds run",
     "watch-risks": "cds watch --open risks/webapp/index.html?sap-ui-xx-viewCache=false",
