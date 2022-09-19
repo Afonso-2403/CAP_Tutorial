@@ -20,10 +20,13 @@ module.exports = cds.service.impl(async function() {
     });
 
 
+/*
+// How to forward the request? This way I get the error "Path expressions in query options are not supported on SQLite"
     this.on('READ', 'Risks', (req) => {
         CDS_LOG.warn({message: 'Test logging warn upon request from cds built-in logger: ' + req})
-        return cds.run(req.query)
+        cds.tx(req).run(req.query)
     });
+*/
 
     this.after('READ', 'Risks', (risksData) => {
         const risks = Array.isArray(risksData) ? risksData : [risksData];
