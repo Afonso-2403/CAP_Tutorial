@@ -14,6 +14,7 @@ module.exports = cds.service.impl(async function() {
 
     this.before('READ', 'Risks', (req) => {
         custom_winston_logger.log({level: 'error', message: 'Just to test logging an error before request from winston: ' + req})
+        custom_winston_logger.info({message: 'Info before request from winston'})
         CDS_LOG.log('from cds built-in logger')
         CDS_LOG.error('an error from cds built-in logger')
         console.log('From the console')
