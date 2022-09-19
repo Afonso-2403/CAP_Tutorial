@@ -37,14 +37,14 @@
         },
         "crossNavigation": {
             "inbounds": {
-              "Risks-display": {
-                "signature": {
-                  "parameters": {},
-                  "additionalParameters": "allowed"
-                },
-                "semanticObject": "Risks",
-                "action": "display"
-              }
+                "Risks-display": {
+                    "signature": {
+                        "parameters": {},
+                        "additionalParameters": "allowed"
+                    },
+                    "semanticObject": "Risks",
+                    "action": "display"
+                }
             }
         }
     },
