@@ -1,23 +1,33 @@
-
 const cds = require('@sap/cds')
-const logger_creator = require('./utilities/my_logger');
-const custom_winston_logger = logger_creator.create_logger({
+
+const CDS_LOG = cds.log('risk-service');
+
+const cf_log = require("cf-nodejs-logging-support");
+
+const winston = require('winston');
+const custom_winston_logger = winston.createLogger({
     level: 'info',
+    format: winston.format.combine(winston.format.timestamp(), winston.format.json()),
+    transports: [cf_log.createWinstonTransport()],
     defaultMeta: { service: 'risk-service' }
 });
-const CDS_LOG = cds.log('risk-service');
 
 /**
  * Implementation for Risk Management service defined in ./risk-service.cds
  */
+
+
 module.exports = cds.service.impl(async function() {
 
     this.before('READ', 'Risks', (req) => {
         custom_winston_logger.log({level: 'error', message: 'Just to test logging an error before request from winston: ' + req})
-        custom_winston_logger.info({message: 'Info before request from winston'})
-        CDS_LOG.log('from cds built-in logger')
-        CDS_LOG.error('an error from cds built-in logger')
-        console.log('From the console')
+        custom_winston_logger.info('Info before request from winston')
+
+        CDS_LOG.error('an error from cds built-in logger: shows as info, not anymore!')
+
+        console.log('From the console: limited usage')
+
+        cf_log.warn('A warning from the cf-nodejs-logging-support logger')
     });
 
 

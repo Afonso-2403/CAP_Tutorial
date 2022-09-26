@@ -148,7 +148,7 @@ resources:
       service-plan: app-host
   - name: cap-log-test
     type: org.cloudfoundry.managed-service
-    parameters: 
+    parameters:
       service: application-logs
       service-plan: lite
 parameters:
